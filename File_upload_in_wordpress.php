@@ -1,6 +1,7 @@
 <?php
 /*#########   HTML FORM   ############*/
 ?>
+<p class="success_msg"></p><p class="error_msg"></p>
 <form action="" method="post" class="form-horizontal" id="myform" enctype="multipart/form-data">
 			<div class="form-group col-md-6">
 					<input type="text" name="name" id="name" placeholder="NAME" class="form-control">
@@ -59,7 +60,7 @@ jQuery('form#myform').submit(function(e){
 				if(data.res == true){
 					jQuery('.success_msg').html(data.message);	// show the success message
 					jQuery('.error_msg').hide();	// hide error msg
-					jQuery('.inner-career-form').hide();
+					jQuery('#myform').hide();
 				}else{
 					jQuery('.error_msg').show().html(data.message);	// show error msg
 				}
