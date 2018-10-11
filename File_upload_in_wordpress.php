@@ -19,7 +19,7 @@
 /*###################   Jquery    ##################*/
 ?>
 <script>
-jQuery('form#job_apply_form').validate({
+jQuery('form#myform').validate({
 	rules : {
 		name:{
 			required: true,
@@ -39,13 +39,13 @@ jQuery('form#job_apply_form').validate({
 		att_resume:{ required: true	}
 	}
 });
-jQuery('form#job_apply_form').submit(function(e){
+jQuery('form#myform').submit(function(e){
 	e.preventDefault();
 	var formData = new FormData(this);
 	formData.append('action', 'job_apply_callback');
 		
 	if (jQuery(this).valid()) {
-		jQuery('#job_apply_form .spin_icon').show();	// show the process icon
+		jQuery('#myform .spin_icon').show();	// show the process icon
 		jQuery.ajax({
 			type: 'post',
 			dataType: 'json',
@@ -55,15 +55,15 @@ jQuery('form#job_apply_form').submit(function(e){
 			processData: false,
 			data: formData,
 			success: function(data) { 
-				jQuery('#job_apply_form .spin_icon').hide();	// stop the process icon
+				jQuery('#myform .spin_icon').hide();	// stop the process icon
 				if(data.res == true){
 					jQuery('.success_msg').html(data.message);	// show the success message
-					jQuery('#job_apply_form .error_msg').hide();	// hide error msg
+					jQuery('.error_msg').hide();	// hide error msg
 					jQuery('.inner-career-form').hide();
 				}else{
 					jQuery('.error_msg').show().html(data.message);	// show error msg
 				}
-				$('#job_apply_form').trigger('reset');		// reset the form
+				$('#myform').trigger('reset');		// reset the form
 			}
 		});
 	}
@@ -75,7 +75,7 @@ jQuery('form#job_apply_form').submit(function(e){
 // Apply for a job
 add_action('wp_ajax_job_apply_callback','job_apply_callback');
 add_action('wp_ajax_nopriv_job_apply_callback', 'job_apply_callback');
-function job_apply_form(){
+function job_apply_callback(){
 	global $wpdb;
 	
 	// First check the nonce, if it fails the function will break
